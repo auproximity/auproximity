@@ -18,6 +18,7 @@ WORKDIR /usr/src/app-prod
 ENV NODE_ENV=production
 
 COPY --from=build /usr/src/app/package.json .
+COPY --from=build /usr/src/app/yarn.lock . 
 RUN yarn install
 
 COPY --from=build /usr/src/app/dist ./dist/
