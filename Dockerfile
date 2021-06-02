@@ -5,8 +5,7 @@ COPY . .
 RUN yarn install
 RUN yarn build
 
-RUN yarn --cwd auproximity-webui install
-RUN yarn --cwd auproximity-webui build
+RUN cd auproximity-webui && yarn install && yarn build && cd ..
 
 RUN mkdir -p dist/src/dist
 RUN cp -r auproximity-webui/dist dist/src
