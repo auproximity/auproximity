@@ -8,7 +8,7 @@ RUN yarn build
 RUN cd auproximity-webui && yarn install && yarn build && cd ..
 
 RUN mkdir -p dist/src/dist
-RUN cp -r auproximity-webui/dist dist/src
+RUN cp -r auproximity-webui/dist dist/
 
 
 FROM mhart/alpine-node:14
@@ -17,7 +17,9 @@ WORKDIR /usr/src/app-prod
 
 ENV NODE_ENV=production
 
-COPY --from=build /usr/src/app/. .
+COPY --from=build /usr/src/app/package.json .
+COPY --from=build /usr/src/app/.yarnrc.yaml .
+COPY --from=build /usr/src/app/.yarn/ .yarn/
 
 RUN yarn install
 
